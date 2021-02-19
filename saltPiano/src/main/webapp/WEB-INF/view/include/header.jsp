@@ -80,7 +80,7 @@ function CookieVal(cookieName) {
                 <h1 class="logo"><a href="/saltpiano/index.do"><img src="/saltpiano/img/salt.png"/></a></h1>
                 <div class="util clear">
                     <a href="#;" id="login_click">Login</a>
-                    <a href="/user/join.do">Join us</a>
+                    <a href="/saltpiano/user/join.do">Join us</a>
                     <!-- 
                 	<a href="/logout.do">로그아웃</a>
                     <a href="/mypage/index.do">마이페이지</a>

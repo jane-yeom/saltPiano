@@ -19,23 +19,21 @@ import org.springframework.web.multipart.MultipartFile;
 
 import sheet.CommentService;
 import sheet.CommentVo;
-import sheet.SheetService;
-import sheet.SheetVo;
 
 
 @Controller
 public class Sheet2Controller {
 	
 	@Autowired
-	private SheetService sheetService;
+	private Sheet2Service sheet2Service;
 	@Autowired
 	private CommentService cService;
 	
 	@RequestMapping("/sheet2/index.do")
-	public String sheet(HttpServletRequest req, SheetVo vo) {
+	public String sheet(HttpServletRequest req, Sheet2Vo vo) {
 		//db에서 조회 req에 담기
-		int[] rowPageCount = sheetService.getRowPageCount(vo);
-		List<SheetVo> list = sheetService.getList(vo);
+		int[] rowPageCount = sheet2Service.getRowPageCount(vo);
+		List<Sheet2Vo> list = sheet2Service.getList(vo);
 		
 		// 값 저장
 		// totalPage, list, reqPage
@@ -50,10 +48,10 @@ public class Sheet2Controller {
 	}
 	
 	@RequestMapping("/sheet2/detail.do")
-	public String detail(HttpServletRequest req, SheetVo vo) {
+	public String detail(HttpServletRequest req, Sheet2Vo vo) {
 		
-		sheetService.update_hits(vo.getNo());
-		SheetVo uv = sheetService.selectOne(vo);
+		sheet2Service.update_hits(vo.getNo());
+		Sheet2Vo uv = sheet2Service.selectOne(vo);
 		
 		//List<CommentVo> clist = cService.getList(uv.getNo());
 		
@@ -69,44 +67,11 @@ public class Sheet2Controller {
 		return "sheet2/write";
 	}
 	
-	@RequestMapping("/board/commentInsert.do")
-	public void commentInsert(CommentVo vo, HttpServletRequest req, HttpServletResponse res, MultipartFile file) throws Exception {
-		// 등록처리. 댓글 등록후 목록으로 돌아가는게 아니고 보던 상세페이지로 이동
-		
-		res.setContentType("text/html;charset=utf-8");
-		PrintWriter out = res.getWriter();
-		out.print("<script>");
-		if (cService.insert(vo)) {
-			out.print("alert('정상적으로 등록되었습니다.');");
-			out.print("location.href='/piano/detail.do?no="+vo.getBoard_no()+"';");
-		} else {
-			out.print("alert('등록실패.');");
-			out.print("history.back();");
-		}
-		out.print("</script>");
-		out.flush();
-	}
-	 
-	@GetMapping("/board/commentDelete.do")
-	public void commentDelete(CommentVo vo, HttpServletResponse res) throws IOException {
-		res.setContentType("text/html;charset=utf-8");
-		PrintWriter out = res.getWriter();
-		out.print("<script>");
-		if (cService.delete(vo.getNo())) {
-			out.print("alert('정상적으로 삭제되었습니다.');");
-			out.print("location.href='/piano/detail.do?no="+vo.getBoard_no()+"';");
-		} else {
-			out.print("alert('삭제실패.');");
-			out.print("history.back();");
-		}
-		out.print("</script>");
-		out.flush();
-	}
 	
-	@RequestMapping("/edit.do")
-	public String edit(HttpServletRequest req, SheetVo vo) {
+	@RequestMapping("/sheet2/edit.do")
+	public String edit(HttpServletRequest req, Sheet2Vo vo) {
 		
-		SheetVo uv = sheetService.selectOne(vo);
+		Sheet2Vo uv = sheet2Service.selectOne(vo);
 		
 		req.setAttribute("vo", uv);
 		
@@ -114,8 +79,8 @@ public class Sheet2Controller {
 		return "sheet2/edit";
 	}
 	
-	@PostMapping("/update.do")
-	public void update(SheetVo vo, HttpServletResponse res, HttpServletRequest req, MultipartFile file) throws IOException {
+	@PostMapping("/sheet2/update.do")
+	public void update(Sheet2Vo vo, HttpServletResponse res, HttpServletRequest req, MultipartFile file) throws IOException {
 		//res.getWriter().print(boardService.update(vo));
 		// 파일을 저장
 		if (!file.isEmpty()) { // 사용자가 첨부한 파일이 있으면
@@ -144,7 +109,7 @@ public class Sheet2Controller {
 		res.setContentType("text/html;charset=utf-8");
 		PrintWriter out = res.getWriter();
 		out.print("<script>");
-		if (sheetService.update(vo)) {
+		if (sheet2Service.update(vo)) {
 			out.print("alert('정상적으로 수정되었습니다.');");
 			out.print("location.href='/piano/detail.do?no="+vo.getNo()+"';");
 		} else {
@@ -155,8 +120,8 @@ public class Sheet2Controller {
 		out.flush();
 	}
 	
-	@RequestMapping("/insert.do")
-	public void insert(SheetVo vo, HttpServletRequest req, HttpServletResponse res, MultipartFile file) throws Exception {
+	@RequestMapping("/sheet2/insert.do")
+	public void insert(Sheet2Vo vo, HttpServletRequest req, HttpServletResponse res, MultipartFile file) throws Exception {
 		// 등록처리
 		//res.getWriter().print(boardService.insert(vo));
 		
@@ -187,7 +152,7 @@ public class Sheet2Controller {
 		res.setContentType("text/html;charset=utf-8");
 		PrintWriter out = res.getWriter();
 		out.print("<script>");
-		if (sheetService.insert(vo)) {
+		if (sheet2Service.insert(vo)) {
 			out.print("alert('정상적으로 등록되었습니다.');");
 			out.print("location.href='/piano/index.do';");
 		} else {
@@ -198,9 +163,9 @@ public class Sheet2Controller {
 		out.flush();
 	}
 	
-	@GetMapping("/delete.do")
-	public void delete(SheetVo vo, HttpServletResponse res) throws IOException {
-		res.getWriter().print(sheetService.delete(vo));
+	@GetMapping("/sheet2/delete.do")
+	public void delete(Sheet2Vo vo, HttpServletResponse res) throws IOException {
+		res.getWriter().print(sheet2Service.delete(vo));
 	}
 	
 }

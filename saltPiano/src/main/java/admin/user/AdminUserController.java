@@ -74,7 +74,7 @@ public class AdminUserController {
 	
 	//@RequestMapping("/user/isDuplicateId.do")
 	//@GetMapping("/user/isDuplicateId.do")
-	@RequestMapping(value="/user/isDuplicateId.do", method=RequestMethod.GET)
+	@RequestMapping(value="/admin/user/isDuplicateId.do", method=RequestMethod.GET)
 	public void isDuplicateId(HttpServletRequest req, HttpServletResponse res, @RequestParam("id") String userid) throws IOException{
 		boolean r = userService.isDuplicateId(userid);
 		res.getWriter().print(r);

@@ -98,10 +98,11 @@ function goSave() {
 					<col width="*" />
 				</colgroup>
 				<tbody>
+				
 					<tr>
-						<th>*이메일</th>
+						<th>*아이디</th>
 						<td>
-							<input type="text" name="email" id="email" class="inNextBtn" class="wid200" style="float:left;">
+							<input type="text" name="id" id="id" class="inNextBtn" class="wid200" style="float:left;">
 							<span class="email_check"><a href="javascript:;" onclick="checkEmail();" class="btn bgGray" style="float:left; width:auto; clear:none;">중복확인</a></span>
 						</td>
 					</tr>

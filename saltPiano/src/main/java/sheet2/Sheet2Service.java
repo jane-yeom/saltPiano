@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 public class Sheet2Service {
 	
 	@Autowired
-	private Sheet2Dao sheetDao;
+	private Sheet2Dao sheet2Dao;
 	
 	// 총갯수와 총페이지수를 구하는 메서드
 		
 		public int[] getRowPageCount(Sheet2Vo vo) {
-			int totCount = sheetDao.count(vo); // 총갯수
+			int totCount = sheet2Dao.count(vo); // 총갯수
 			// 총페이지 수 = 총갯수/페이지당갯수, 만약 총갯수에서 페이지당갯수로 나눈 나머지가 있으면 +1
 			int totPage = totCount / vo.getPageRow();
 			if (totCount % vo.getPageRow() > 0) totPage++;
@@ -35,15 +35,15 @@ public class Sheet2Service {
 		}
 		// 목록을 구하는 메서드
 		public List<Sheet2Vo> getList(Sheet2Vo vo) {
-			return sheetDao.selectList(vo);
+			return sheet2Dao.selectList(vo);
 		}
 		
 		public Sheet2Vo selectOne(Sheet2Vo uv) {
-			return sheetDao.selectOne(uv);
+			return sheet2Dao.selectOne(uv);
 		}
 		
 		public boolean insert(Sheet2Vo vo) {
-			int r = sheetDao.insert(vo);
+			int r = sheet2Dao.insert(vo);
 			if (r > 0) {
 				return true;
 			} else {
@@ -52,7 +52,7 @@ public class Sheet2Service {
 		}
 
 		public boolean delete(Sheet2Vo vo) {
-			int r = sheetDao.delete(vo);
+			int r = sheet2Dao.delete(vo);
 			if (r > 0) {
 				return true;
 			} else {
@@ -61,7 +61,7 @@ public class Sheet2Service {
 		}
 		
 		public boolean update(Sheet2Vo vo) {
-			int r = sheetDao.update(vo);
+			int r = sheet2Dao.update(vo);
 			if (r > 0) {
 				return true;
 			} else {
@@ -70,7 +70,7 @@ public class Sheet2Service {
 		}
 		
 		public boolean update_hits(int no) {
-			int r = sheetDao.update_hits(no);
+			int r = sheet2Dao.update_hits(no);
 			if (r > 0) {
 				return true;
 			} else {

@@ -42,16 +42,24 @@
 			id,
 			pwd,
 			user_name,
+			birth,
 			email,
+			gender,
 			tel,
-			regdate
+			regdate,
+			moddate,
+			filename
 		) VALUES (
 			#{id},
 			password(#{pwd}),
 			#{user_name},
-			#{email},
+			#{birth},
+			#{gender},
 			#{tel},
-			NOW()
+			#{email},
+			NOW(),
+			NOW(),
+			#{filename}
 		)
 	</insert>
 	
@@ -60,7 +68,8 @@
 			user_name = #{user_name},
 			email = #{email},
 			tel = #{tel},
-			pwd = password(#{pwd})
+			pwd = password(#{pwd}),
+			filename = #{filename}
 		WHERE
 			no = #{no}
 	</update>

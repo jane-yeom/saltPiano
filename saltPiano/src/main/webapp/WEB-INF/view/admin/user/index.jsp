@@ -52,8 +52,8 @@ function goSearch() {
 								<colgroup>
 									<col class="w3" />
 									<col class="w4" />
-									<col class="w30" />
 									<col class="w10" />
+									<col class="w30" />
 									<col class="w5" />
 									<col class="w6" />
 								</colgroup>
@@ -62,6 +62,7 @@ function goSearch() {
 										<th scope="col" class="first"><input type="checkbox" name="allChk" id="allChk" onClick="check(this, document.frm.no)"/></th>
 										<th scope="col">회원번호</th>
 										<th scope="col">아이디</th> 
+										<th scope="col">이메일</th> 
 										<th scope="col">이름</th> 
 										<th scope="col">가입일</th> 
 									</tr>
@@ -72,6 +73,7 @@ function goSearch() {
 										<td class="first"><input type="checkbox" name="nos" id="no" value="${vo.no }"/></td>
 										<td>${vo.no }</td>
 										<td class="title"><a href="detail.do?no=${vo.no }">${vo.id }</a></td>
+										<td>${vo.email }</td>
 										<td>${vo.user_name }</td>
 										<td>${vo.regdate }</td>
 									</tr>

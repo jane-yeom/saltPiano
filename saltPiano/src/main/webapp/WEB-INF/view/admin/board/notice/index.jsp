@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <%@ include file="/WEB-INF/view/admin/include/headHtml.jsp" %>
 <script>
-function groupDelete() {	
+function groupDelete() {	      
 	if ( isSeleted(document.frm.nos) ){
 		if (confirm ('삭제하시겠습니까?')) {
 			document.frm.submit();

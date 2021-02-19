@@ -78,13 +78,6 @@ function save() {
 										</td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="">*작성자</label></th>
-										<td colspan="10">
-											<input type="text" id="title" name="user_name" class="w40" title="이름을 입력해주세요" />	
-											<input type="text" id="title" name="price" class="w40" title="이름을 입력해주세요" />	
-										</td>
-									</tr>
-									<tr>
 										<th scope="row"><label for="">*내용</label></th>
 										<td colspan="10">
 											<textarea id="contents" name="contents" title="내용을 입력해주세요" style="width:100%;"></textarea>	

@@ -1,4 +1,4 @@
-package admin.sheet;
+package admin.sheet2;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,22 +18,22 @@ import org.springframework.web.multipart.MultipartFile;
 
 import sheet.CommentService;
 import sheet.CommentVo;
-import sheet.SheetService;
-import sheet.SheetVo;
+import sheet2.Sheet2Service;
+import sheet2.Sheet2Vo;
 
 @Controller
 public class AdminSheet2Controller {
 
 	@Autowired
-	private SheetService sheetService;
+	private Sheet2Service sheet2Service;
 	@Autowired
 	private CommentService cService;
 	
 	@RequestMapping("/admin/sheet2/index.do")
-	public String index(HttpServletRequest req, SheetVo vo) {
+	public String index(HttpServletRequest req, Sheet2Vo vo) {
 		// 서비스(로직) 처리(호출)
-		int[] rowPageCount = sheetService.getRowPageCount(vo);
-		List<SheetVo> list = sheetService.getList(vo);
+		int[] rowPageCount = sheet2Service.getRowPageCount(vo);
+		List<Sheet2Vo> list = sheet2Service.getList(vo);
 		
 		// 값 저장
 		// totalPage, list, reqPage
@@ -42,7 +42,7 @@ public class AdminSheet2Controller {
 		req.setAttribute("endPage", rowPageCount[3]); // 마지막페이지
 		req.setAttribute("totalCount", rowPageCount[0]); // 총갯수
 		req.setAttribute("list", list);
-		// /sheet2/index.do?reqPage=2 -> SheetVo에 reqPage 필드에 바인딩 (커맨드객체)
+		// /sheet2/index.do?reqPage=2 -> Sheet2Vo에 reqPage 필드에 바인딩 (커맨드객체)
 		// /sheet2/index.do
 		req.setAttribute("reqPage", vo.getReqPage());
 		req.setAttribute("vo", vo);
@@ -52,9 +52,9 @@ public class AdminSheet2Controller {
 	}
 	
 	@RequestMapping("/admin/sheet2/detail.do")
-	public String detail(HttpServletRequest req, SheetVo vo) {
+	public String detail(HttpServletRequest req, Sheet2Vo vo) {
 		
-		SheetVo uv = sheetService.selectOne(vo);
+		Sheet2Vo uv = sheet2Service.selectOne(vo);
 		List<CommentVo> clist = cService.getList(uv.getNo());
 		
 		req.setAttribute("vo", uv);
@@ -70,9 +70,9 @@ public class AdminSheet2Controller {
 	}
 	
 	@RequestMapping("/admin/sheet2/insert.do")
-	public void insert(SheetVo vo, HttpServletRequest req, HttpServletResponse res, MultipartFile file) throws Exception {
+	public void insert(Sheet2Vo vo, HttpServletRequest req, HttpServletResponse res, MultipartFile file) throws Exception {
 		// 등록처리
-		//res.getWriter().print(sheetService.insert(vo));
+		//res.getWriter().print(sheet2Service.insert(vo));
 		
 		// 파일을 저장
 		if (!file.isEmpty()) { // 사용자가 첨부한 파일이 있으면
@@ -101,7 +101,7 @@ public class AdminSheet2Controller {
 		res.setContentType("text/html;charset=utf-8");
 		PrintWriter out = res.getWriter();
 		out.print("<script>");
-		if (sheetService.insert(vo)) {
+		if (sheet2Service.insert(vo)) {
 			out.print("alert('정상적으로 등록되었습니다.');");
 			out.print("location.href='/saltpiano/admin/sheet2/index.do';");
 		} else {
@@ -113,9 +113,9 @@ public class AdminSheet2Controller {
 	}
 	
 	@RequestMapping("/admin/sheet2/edit.do")
-	public String edit(HttpServletRequest req, SheetVo vo) {
+	public String edit(HttpServletRequest req, Sheet2Vo vo) {
 		
-		SheetVo uv = sheetService.selectOne(vo);
+		Sheet2Vo uv = sheet2Service.selectOne(vo);
 		
 		req.setAttribute("vo", uv);
 		
@@ -124,8 +124,8 @@ public class AdminSheet2Controller {
 	}
 	
 	@PostMapping("/admin/sheet2/update.do")
-	public void update(SheetVo vo, HttpServletResponse res, HttpServletRequest req, MultipartFile file) throws IOException {
-		//res.getWriter().print(sheetService.update(vo));
+	public void update(Sheet2Vo vo, HttpServletResponse res, HttpServletRequest req, MultipartFile file) throws IOException {
+		//res.getWriter().print(sheet2Service.update(vo));
 		// 파일을 저장
 		if (!file.isEmpty()) { // 사용자가 첨부한 파일이 있으면
 			try {
@@ -151,7 +151,7 @@ public class AdminSheet2Controller {
 		res.setContentType("text/html;charset=utf-8");
 		PrintWriter out = res.getWriter();
 		out.print("<script>");
-		if (sheetService.update(vo)) {
+		if (sheet2Service.update(vo)) {
 			out.print("alert('정상적으로 수정되었습니다.');");
 			out.print("location.href='/saltpiano/admin/sheet2/detail.do?no="+vo.getNo()+"';");
 		} else {
@@ -163,8 +163,8 @@ public class AdminSheet2Controller {
 	}
 	
 	@GetMapping("/admin/sheet2/delete.do")
-	public void delete(SheetVo vo, HttpServletResponse res) throws IOException {
-		res.getWriter().print(sheetService.delete(vo));
+	public void delete(Sheet2Vo vo, HttpServletResponse res) throws IOException {
+		res.getWriter().print(sheet2Service.delete(vo));
 	}
 	
 	@RequestMapping("/admin/sheet2/commentInsert.do")
@@ -201,7 +201,7 @@ public class AdminSheet2Controller {
 	}
 	
 	@RequestMapping("/admin/sheet2/groupDelete.do")
-	public void groupDelete(SheetVo vo, HttpServletResponse res, HttpServletRequest req) throws IOException {
+	public void groupDelete(Sheet2Vo vo, HttpServletResponse res, HttpServletRequest req) throws IOException {
 		/*
 		 컨트롤러에서 파라미터를 받는 3가지 방법
 		 1. request 객체
@@ -212,7 +212,7 @@ public class AdminSheet2Controller {
 		int delCount = 0;
 		for (int i=0; i<nos.length; i++) {
 			vo.setNo(Integer.parseInt(nos[i]));
-			if (sheetService.delete(vo)) delCount++;
+			if (sheet2Service.delete(vo)) delCount++;
 		}
 		
 		res.setContentType("text/html;charset=utf-8");
@@ -230,7 +230,7 @@ public class AdminSheet2Controller {
 	}
 	
 //	@RequestMapping("/admin/sheet2/groupDelete2.do")
-//	public void groupDelete2(SheetVo vo, HttpServletResponse res, HttpServletRequest req) throws IOException {
+//	public void groupDelete2(Sheet2Vo vo, HttpServletResponse res, HttpServletRequest req) throws IOException {
 //		/*
 //		 컨트롤러에서 파라미터를 받는 3가지 방법
 //		 1. request 객체
@@ -240,7 +240,7 @@ public class AdminSheet2Controller {
 //		int delCount = 0;
 //		for (int i=0; i<vo.getNos().length; i++) {
 //			vo.setNo(Integer.parseInt(vo.getNos()[i]));
-//			if (sheetService.delete(vo)) delCount++;
+//			if (sheet2Service.delete(vo)) delCount++;
 //		}
 //		
 //		res.setContentType("text/html;charset=utf-8");

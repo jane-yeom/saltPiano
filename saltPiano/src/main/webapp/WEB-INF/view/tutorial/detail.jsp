@@ -44,7 +44,7 @@ function del() {
     <%@ include file="/WEB-INF/view/include/header.jsp" %>
     <div class="sub">
 		<div class="size">
-			<h3 class="sub_title">동영상</h3>
+			<h3 class="sub_title">tutorial</h3>
 			<div class="bbs">
 				<div class="view">
 					<div class="title">
@@ -53,7 +53,7 @@ function del() {
 							<dd class="date">작성일 : ${vo.regdate } </dd>
 						</dl>
 					</div>
-					<div class="cont"><p><img title="물고기.png" src="http://localhost:8080/saltpiano/upload/editor/1547434662941_477.png" alt=""><br style="clear:both;">${vo.description}</p></div><br>
+					<div class="cont"><p><img title="물고기.png" src="http://localhost:8080/saltpiano/upload/editor/1547434662941_477.png" alt=""><br style="clear:both;">${vo.contents}</p></div><br>
 					<br>
 					<c:if test="${!empty vo.url }">
 						<iframe width="600" height="360" src="https://www.youtube.com/embed/${vo.url2 }" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

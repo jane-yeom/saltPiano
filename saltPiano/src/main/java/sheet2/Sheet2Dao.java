@@ -14,32 +14,32 @@ public class Sheet2Dao {
 	private SqlSessionTemplate sqlSession;
 	
 	public int count(Sheet2Vo vo) {
-		return sqlSession.selectOne("sheet.count", vo);
+		return sqlSession.selectOne("sheet2.count", vo);
 	}
 	
 	public List<Sheet2Vo> selectList(Sheet2Vo vo) {
-		return sqlSession.selectList("sheet.selectList", vo);
+		return sqlSession.selectList("sheet2.selectList", vo);
 	}
 	
 	public Sheet2Vo selectOne(Sheet2Vo vo) {
-		return sqlSession.selectOne("sheet.selectOne", vo);
+		return sqlSession.selectOne("sheet2.selectOne", vo);
 	}
 	
 	public int insert(Sheet2Vo vo) {
-		return sqlSession.insert("sheet.insert",vo);
+		return sqlSession.insert("sheet2.insert",vo);
 	}
 	
 	public int delete(Sheet2Vo vo) {
-		return sqlSession.delete("sheet.delete", vo);
+		return sqlSession.delete("sheet2.delete", vo);
 	}
 	
 	public int update(Sheet2Vo vo) {
-		return sqlSession.update("sheet.update", vo);
+		return sqlSession.update("sheet2.update", vo);
 	}
 	
 
 	public int update_hits(int no) {
-		return sqlSession.update("sheet.update_hits", no);
+		return sqlSession.update("sheet2.update_hits", no);
 	}
 	
 	

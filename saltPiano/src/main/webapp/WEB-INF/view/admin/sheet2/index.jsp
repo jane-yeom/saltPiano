@@ -76,7 +76,7 @@ function goSearch() {
 										<td>${vo.no }</td>
 										<td class="title"><a href="detail.do?no=${vo.no }">${vo.title }</a></td>
 										<td>${vo.price }</td>
-										<td>${vo.user_name }</td>
+										<td>Jane</td>
 										<td>${vo.regdate }</td>
 										<td class="last">${vo.hits }</td>
 									</tr>
