@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tutorial">
+
+	<sql id="tutorialWhere">
+		<where> <!-- 아래 조건이 있으면 where 붙임 -->
+			<!-- 이름이나 내용 검색 -->
+			<if test="searchWord != null and searchWord != ''"> <!-- where 다음에 and가 오면 자동으로 제거 -->
+			and (title like '%${searchWord}%' or contents like '%${searchWord}%' or user_name like '%${searchWord}%')
+			</if>
+		</where>
+	</sql>
+	
+	<select id="count" parameterType="tutorial.TutorialVo" resultType="int">
+		select count(*) as cnt from tutorial
+		<include refid="tutorialWhere"/>
+	</select>
+	
+	<select id="selectList" parameterType="tutorial.TutorialVo" resultType="tutorial.TutorialVo">
+		select * from tutorial
+		<include refid="tutorialWhere"/>
+		ORDER BY ${orderby} ${direct}
+		limit ${startIdx}, ${pageRow}
+	</select>
+	
+	<select id="selectOne" parameterType="tutorial.TutorialVo" resultType="tutorial.TutorialVo">
+		select * from tutorial where no=${no}
+	</select>
+	
+	<insert id="insert" parameterType="tutorial.TutorialVo">
+		INSERT INTO tutorial (
+			user_name, title, hits, regdate, genre, contents, url
+		) VALUES (
+			#{user_name},
+			#{title},  
+			0,
+			NOW(),  
+			#{genre},
+			#{contents},
+			#{url}
+		)
+	</insert>
+	
+	<update id="update" parameterType="tutorial.TutorialVo">
+		UPDATE tutorial SET
+			title = #{title}
+			, contents = #{contents}
+			, url = #{url}
+			, genre = #{genre}
+			
+		WHERE
+			no = #{no}
+	</update>
+	
+	<delete id="delete" parameterType="tutorial.TutorialVo">
+		DELETE FROM tutorial WHERE no = #{no}
+	</delete>
+	
+	<update id="update_hits" parameterType="int">
+		UPDATE tutorial SET hits=hits+1 WHERE NO=#{no}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

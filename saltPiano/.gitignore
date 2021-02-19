@@ -1,0 +1,6 @@
+/target/
+/pp/
+.classpath
+.settings
+.project
+/AI/
