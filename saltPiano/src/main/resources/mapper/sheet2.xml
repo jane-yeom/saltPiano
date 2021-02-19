@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sheet2">
+
+	<sql id="sheet2Where">
+		<where> <!-- 아래 조건이 있으면 where 붙임 -->
+			<!-- 이름이나 내용 검색 -->
+			<if test="searchWord != null and searchWord != ''"> <!-- where 다음에 and가 오면 자동으로 제거 -->
+			and (title like '%${searchWord}%' or contents like '%${searchWord}%' or user_name like '%${searchWord}%')
+			</if>
+		</where>
+	</sql>
+	
+	<select id="count" parameterType="sheet2.Sheet2Vo" resultType="int">
+		select count(*) as cnt from sheet2
+		<include refid="sheet2Where"/>
+	</select>
+	
+	<select id="selectList" parameterType="sheet2.Sheet2Vo" resultType="sheet2.Sheet2Vo">
+		select * from sheet2
+		<include refid="sheet2Where"/>
+		ORDER BY ${orderby} ${direct}
+		limit ${startIdx}, ${pageRow}
+	</select>
+	
+	<select id="selectOne" parameterType="sheet2.Sheet2Vo" resultType="sheet2.Sheet2Vo">
+		select * from sheet2 where no=${no}
+	</select>
+	
+	<insert id="insert" parameterType="sheet2.Sheet2Vo">
+		INSERT INTO sheet2 (
+			user_name, title, price, hits, regdate, genre, contents, filename, filename_org
+		) VALUES (
+			#{user_name},
+			#{title},  
+			#{price},
+			0,
+			NOW(),  
+			#{genre},
+			#{contents},
+			#{filename},
+			#{filename_org}
+		)  
+	</insert>
+	
+	<update id="update" parameterType="sheet2.Sheet2Vo">
+		UPDATE sheet2 SET
+			title = #{title}
+			, price = #{price}
+			, contents = #{contents}
+			, url = #{url}
+			, genre = #{genre}
+			<if test="filename != null">
+			, filename=#{filename}
+			, filename_org=#{filename_org}
+			</if>
+		WHERE
+			no = #{no}
+	</update>
+	
+	<delete id="delete" parameterType="sheet2.Sheet2Vo">
+		DELETE FROM sheet2 WHERE no = #{no}
+	</delete>
+	
+	<update id="update_hits" parameterType="int">
+		UPDATE sheet2 SET hits=hits+1 WHERE NO=#{no}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>
