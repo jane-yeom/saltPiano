@@ -46,6 +46,7 @@ public class AdminBoardController {
 		// /board/index.do
 		req.setAttribute("reqPage", vo.getReqPage());
 		req.setAttribute("vo", vo);
+		req.setAttribute("vo", vo);
 		
 		// jsp 포워딩
 		return "admin/board/notice/index";
